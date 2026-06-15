@@ -1,106 +1,142 @@
-# Flask App — AWS ECS Deployment
+# Simple Flask Docker App
 
-A minimal Flask web application built for learning containerization and deployment to **AWS ECS (Elastic Container Service)**.
+A basic Flask web application containerized using Docker.
 
-Part of the [TrainWithShubham](https://github.com/TrainWithShubham) — DevOps Zero To Hero course.
+This project was created to learn:
 
-![Python](https://img.shields.io/badge/Python-3.14-blue)
-![Flask](https://img.shields.io/badge/Flask-3.1.1-green)
-![Docker](https://img.shields.io/badge/Docker-Ready-2496ED)
-![AWS ECS](https://img.shields.io/badge/AWS-ECS-FF9900)
-
-## Features
-
-- Responsive landing page with modern glassmorphism UI
-- `/health` endpoint for ECS load balancer health checks
-- Two Dockerfiles — simple and multistage (distroless)
+* Docker Images
+* Docker Containers
+* Dockerfile
+* Docker Build Process
+* Port Mapping
+* Container Lifecycle Management
 
 ## Tech Stack
 
-| Component | Technology |
-|-----------|------------|
-| Framework | Flask 3.1.1 |
-| Runtime   | Python 3.14 |
-| Container | Docker (python-slim / distroless) |
-| Deploy    | AWS ECS |
+* Python 3
+* Flask
+* Docker
 
 ## Project Structure
 
-```
-flask-app-ecs/
-├── app.py                 # Flask app with routes
-├── run.py                 # Entry point (host 0.0.0.0, port 80)
-├── requirements.txt       # Python dependencies
+```text
+simple-flask-docker-app/
+├── app.py
+├── run.py
+├── requirements.txt
 ├── templates/
-│   └── index.html         # Landing page
-├── Dockerfile             # Simple single-stage build
-└── Dockerfile-multi       # Multistage build with distroless
+│   └── index.html
+└── Dockerfile
 ```
 
-## Quick Start
+## Application Routes
 
-### Run locally
+| Route | Description |
+| ----- | ----------- |
+| /     | Home Page   |
+
+## Run Without Docker
+
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
+```
+
+Run the application:
+
+```bash
 python run.py
 ```
 
-App runs at **http://localhost:80**.
+Open:
 
-### Run with Docker
+```text
+http://localhost:80
+```
 
-**Simple build:**
+## Docker Commands
+
+### Build Docker Image
 
 ```bash
 docker build -t flask-app .
-docker run -p 80:80 flask-app
 ```
 
-**Multistage build (smaller, production-grade):**
+Verify image:
 
 ```bash
-docker build -f Dockerfile-multi -t flask-app .
-docker run -p 80:80 flask-app
+docker images
 ```
 
-## Dockerfiles Explained
+### Run Docker Container
 
-### Simple (`Dockerfile`)
+```bash
+docker run -d -p 80:80 --name flask-container flask-app
+```
 
-Single-stage build using `python:3.14-slim`. Straightforward — copies everything, installs dependencies, runs the app. Good for development and learning.
+Verify container:
 
-### Multistage (`Dockerfile-multi`)
+```bash
+docker ps
+```
 
-Two-stage build:
-1. **Builder stage** — installs dependencies into a separate directory using `python:3.14-slim`
-2. **Final stage** — copies only the app and deps into a `distroless` image
+Access application:
 
-Benefits:
-- Smaller final image (no pip, no shell, no OS utilities)
-- Reduced attack surface — distroless images contain only the app and its runtime
-- Better layer caching — dependencies are copied before source code
+```text
+http://localhost:80
+```
 
-## Endpoints
+### View Container Logs
 
-| Route     | Method | Description                     |
-|-----------|--------|---------------------------------|
-| `/`       | GET    | Landing page                    |
-| `/health` | GET    | Health check (returns `Server is up and running`) |
+```bash
+docker logs flask-container
+```
 
-## Deploy to AWS ECS
+### Stop Container
 
-High-level steps to deploy this app on ECS:
+```bash
+docker stop flask-container
+```
 
-1. **Push image to ECR**
-   ```bash
-   aws ecr get-login-password --region <region> | docker login --username AWS --password-stdin <account-id>.dkr.ecr.<region>.amazonaws.com
-   docker tag flask-app:latest <account-id>.dkr.ecr.<region>.amazonaws.com/flask-app:latest
-   docker push <account-id>.dkr.ecr.<region>.amazonaws.com/flask-app:latest
-   ```
+### Start Existing Container
 
-2. **Create ECS Task Definition** — specify the ECR image, port 80, memory/CPU limits
+```bash
+docker start flask-container
+```
 
-3. **Create ECS Service** — attach to a cluster, configure desired count, link to a load balancer
+### Restart Container
 
-4. **Configure ALB** — target group pointing to port 80, use `/health` as the health check path
+```bash
+docker restart flask-container
+```
+
+### Remove Container
+
+```bash
+docker rm -f flask-container
+```
+
+### Remove Docker Image
+
+```bash
+docker rmi flask-app
+```
+
+## Learning Outcomes
+
+Through this project, I learned:
+
+* Creating Docker images using a Dockerfile
+* Building images with `docker build`
+* Running containers with `docker run`
+* Mapping ports using `-p`
+* Managing containers using Docker commands
+* Viewing logs and troubleshooting containers
+* Understanding the difference between images and containers
+
+## Author
+
+Sultan Ahmed Shaikh
+
+Learning Docker and DevOps.
