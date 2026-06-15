@@ -1,24 +1,20 @@
-# Base image (OS)
-
-FROM python:3.14-slim
-
-# Working directory
+# stage 1 base image
+FROM python:3.11 AS builder
 
 WORKDIR /app
 
-# Copy src code to container
-
-COPY . .
-
-# Run the build commands
+COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 
-# expose port 80
+#-------------
+# stage 2 base image 
+FROM python:3.11-slim
 
-EXPOSE 80
+WORKDIR /app
 
-# serve the app / run the app (keep it running)
+COPY --from=builder /usr/local/lib/python3.11/site-packages/ /usr/local/lib/python3.11/site-packages/
 
-CMD ["python","run.py"]
+COPY . .
 
+ENTRYPOINT ["python","run.py"]
