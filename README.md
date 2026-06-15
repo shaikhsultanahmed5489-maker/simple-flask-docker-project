@@ -1,142 +1,57 @@
-# Simple Flask Docker App
+## Deployment Environment
 
-A basic Flask web application containerized using Docker.
+This project was built and tested on an AWS EC2 instance running Ubuntu.
 
-This project was created to learn:
+### Infrastructure Used
 
-* Docker Images
-* Docker Containers
-* Dockerfile
-* Docker Build Process
-* Port Mapping
-* Container Lifecycle Management
+* AWS EC2 (Ubuntu)
+* Docker Engine
+* Git & GitHub
+* Flask Application
 
-## Tech Stack
+### Deployment Steps
 
-* Python 3
-* Flask
-* Docker
-
-## Project Structure
-
-```text
-simple-flask-docker-app/
-├── app.py
-├── run.py
-├── requirements.txt
-├── templates/
-│   └── index.html
-└── Dockerfile
-```
-
-## Application Routes
-
-| Route | Description |
-| ----- | ----------- |
-| /     | Home Page   |
-
-## Run Without Docker
-
-Install dependencies:
+1. Launch EC2 instance
+2. Install Docker
+3. Clone the GitHub repository
+4. Build Docker image
+5. Run container
+6. Access application through EC2 Public IP
 
 ```bash
-pip install -r requirements.txt
-```
+git clone <repository-url>
+cd simple-flask-docker-project
 
-Run the application:
-
-```bash
-python run.py
-```
-
-Open:
-
-```text
-http://localhost:80
-```
-
-## Docker Commands
-
-### Build Docker Image
-
-```bash
 docker build -t flask-app .
-```
-
-Verify image:
-
-```bash
-docker images
-```
-
-### Run Docker Container
-
-```bash
 docker run -d -p 80:80 --name flask-container flask-app
 ```
 
-Verify container:
-
-```bash
-docker ps
-```
-
-Access application:
+### Application URL
 
 ```text
-http://localhost:80
+http://<EC2-PUBLIC-IP>
 ```
 
-### View Container Logs
+## Screenshots
 
-```bash
-docker logs flask-container
-```
+### AWS EC2 Instance
 
-### Stop Container
+*Add screenshot of your running EC2 instance from AWS Console.*
 
-```bash
-docker stop flask-container
-```
+### Docker Image Build
 
-### Start Existing Container
+*Add screenshot showing successful `docker build -t flask-app .` command.*
 
-```bash
-docker start flask-container
-```
+### Running Container
 
-### Restart Container
+*Add screenshot showing `docker ps` output.*
 
-```bash
-docker restart flask-container
-```
+### Application Running on Browser
 
-### Remove Container
+*Add screenshot showing the Flask application accessed through the EC2 Public IP.*
+<img width="1919" height="1019" alt="Running on browser" src="https://github.com/user-attachments/assets/b4ac1b23-5abd-4eca-9136-7dfaa1878259" />
 
-```bash
-docker rm -f flask-container
-```
 
-### Remove Docker Image
+### GitHub Repository
 
-```bash
-docker rmi flask-app
-```
-
-## Learning Outcomes
-
-Through this project, I learned:
-
-* Creating Docker images using a Dockerfile
-* Building images with `docker build`
-* Running containers with `docker run`
-* Mapping ports using `-p`
-* Managing containers using Docker commands
-* Viewing logs and troubleshooting containers
-* Understanding the difference between images and containers
-
-## Author
-
-Sultan Ahmed Shaikh
-
-Learning Docker and DevOps.
+*Add screenshot of the GitHub repository containing the project.*
