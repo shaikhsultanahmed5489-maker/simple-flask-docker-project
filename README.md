@@ -36,22 +36,12 @@ http://<EC2-PUBLIC-IP>
 
 ### AWS EC2 Instance
 
-*Add screenshot of your running EC2 instance from AWS Console.*
+<img width="1919" height="923" alt="ec2" src="https://github.com/user-attachments/assets/541f7cbb-606a-46bd-bb25-b10ec2f96a7f" />
 
-### Docker Image Build
+### Docker Image Build & Running Container
 
-*Add screenshot showing successful `docker build -t flask-app .` command.*
-
-### Running Container
-
-*Add screenshot showing `docker ps` output.*
+<img width="1853" height="882" alt="docker build   ps" src="https://github.com/user-attachments/assets/c48d83d2-2bc0-47fd-b354-64d37ae90099" />
 
 ### Application Running on Browser
 
-*Add screenshot showing the Flask application accessed through the EC2 Public IP.*
 <img width="1919" height="1019" alt="Running on browser" src="https://github.com/user-attachments/assets/b4ac1b23-5abd-4eca-9136-7dfaa1878259" />
-
-
-### GitHub Repository
-
-*Add screenshot of the GitHub repository containing the project.*
